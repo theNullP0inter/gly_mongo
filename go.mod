@@ -1,4 +1,4 @@
-module github.com/theNullP0inter/googly-contrib-mongo
+module github.com/theNullP0inter/gly_mongo
 
 go 1.13
 
