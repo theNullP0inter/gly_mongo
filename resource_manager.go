@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/jinzhu/copier"
-	"github.com/theNullP0inter/googly/db"
 	"github.com/theNullP0inter/googly/logger"
 	"github.com/theNullP0inter/googly/resource"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -32,7 +31,7 @@ type BaseMongoResourceManager struct {
 	*resource.BaseResourceManager
 	Db             *mongo.Database
 	CollectionName string
-	Model          db.BaseModel
+	Model          resource.Resource
 	QueryBuilder   MongoListQueryBuilder
 }
 
@@ -41,17 +40,12 @@ func (s *BaseMongoResourceManager) GetResource() resource.Resource {
 	return s.Model
 }
 
-// GetModel will get you the model resource
-func (s *BaseMongoResourceManager) GetModel() resource.Resource {
-	return s.Model
-}
-
 // Create creates an entry in with given data
 func (s *BaseMongoResourceManager) Create(m resource.DataInterface) (resource.DataInterface, error) {
 	ctx, cancel := initContext()
 	defer cancel()
 
-	item := reflect.New(reflect.TypeOf(s.GetModel())).Interface()
+	item := reflect.New(reflect.TypeOf(s.GetResource())).Interface()
 	copier.Copy(item, m)
 
 	res, err := s.Db.Collection(s.CollectionName).InsertOne(ctx, item)
@@ -81,7 +75,7 @@ func (s *BaseMongoResourceManager) Get(id resource.DataInterface) (resource.Data
 		return nil, resource.ErrInvalidFormat
 	}
 
-	item := reflect.New(reflect.TypeOf(s.GetModel())).Interface()
+	item := reflect.New(reflect.TypeOf(s.GetResource())).Interface()
 	err = s.Db.Collection(s.CollectionName).FindOne(ctx, bson.M{"_id": objectId}).Decode(item)
 
 	if err != nil {
@@ -169,7 +163,7 @@ func (s *BaseMongoResourceManager) List(parameters resource.DataInterface) (reso
 		return nil, resource.ErrInternal
 	}
 
-	items := reflect.New(reflect.SliceOf(reflect.TypeOf(s.GetModel()))).Interface()
+	items := reflect.New(reflect.SliceOf(reflect.TypeOf(s.GetResource()))).Interface()
 
 	cur.All(ctx, items)
 
@@ -181,7 +175,7 @@ func NewMongoResourceManager(
 	mongoDb *mongo.Database,
 	collectionName string,
 	logger logger.GooglyLoggerInterface,
-	model db.BaseModel,
+	model resource.Resource,
 	queryBuilder MongoListQueryBuilder,
 ) *BaseMongoResourceManager {
 	resourceManager := resource.NewBaseResourceManager(logger, model)
