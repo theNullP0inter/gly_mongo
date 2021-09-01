@@ -174,7 +174,7 @@ func (s *BaseMongoResourceManager) List(parameters resource.DataInterface) (reso
 func NewMongoResourceManager(
 	mongoDb *mongo.Database,
 	collectionName string,
-	logger logger.GooglyLoggerInterface,
+	logger logger.GooglyLogger,
 	model resource.Resource,
 	queryBuilder MongoListQueryBuilder,
 ) *BaseMongoResourceManager {
