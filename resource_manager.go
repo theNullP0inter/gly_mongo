@@ -112,13 +112,9 @@ func (s *BaseMongoResourceManager) Update(id resource.DataInterface, data resour
 	reqDoc := bson.M{}
 	bson.Unmarshal(req, reqDoc)
 
-	res, err := s.Db.Collection(s.CollectionName).UpdateOne(ctx, bson.M{"_id": objectId}, bson.M{"$set": reqDoc})
+	_, err = s.Db.Collection(s.CollectionName).UpdateOne(ctx, bson.M{"_id": objectId}, bson.M{"$set": reqDoc})
 	if err != nil {
 		return resource.ErrInternal
-	}
-
-	if res.ModifiedCount == 0 {
-		return resource.ErrNoModification
 	}
 
 	return nil
@@ -134,14 +130,10 @@ func (s *BaseMongoResourceManager) Delete(id resource.DataInterface) error {
 		return resource.ErrInvalidFormat
 	}
 
-	res, err := s.Db.Collection(s.CollectionName).DeleteOne(ctx, bson.M{"_id": objectId})
+	_, err = s.Db.Collection(s.CollectionName).DeleteOne(ctx, bson.M{"_id": objectId})
 
 	if err != nil {
 		return resource.ErrInternal
-	}
-
-	if res.DeletedCount == 0 {
-		return resource.ErrResourceNotFound
 	}
 
 	return nil
@@ -171,7 +163,7 @@ func (s *BaseMongoResourceManager) List(parameters resource.DataInterface) (reso
 }
 
 // NewMongoResourceManager creates a new MongoResourceManager
-func NewMongoResourceManager(
+func NewBaseMongoResourceManager(
 	mongoDb *mongo.Database,
 	collectionName string,
 	logger logger.GooglyLogger,

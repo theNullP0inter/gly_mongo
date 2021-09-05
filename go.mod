@@ -27,6 +27,7 @@ require (
 	github.com/sarulabs/di v2.0.0+incompatible // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/stretchr/objx v0.3.0 // indirect
+	github.com/stretchr/testify v1.7.0
 	github.com/swaggo/swag v1.7.0 // indirect
 	github.com/theNullP0inter/googly v0.0.0-20210822121707-891636bdd0f8
 	github.com/thedevsaddam/govalidator v1.9.10 // indirect
@@ -39,5 +40,5 @@ require (
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
 	gorm.io/driver/mysql v1.1.1 // indirect
-	gorm.io/gorm v1.21.12 // indirect
+	gorm.io/gorm v1.21.12
 )
