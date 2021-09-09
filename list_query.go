@@ -25,7 +25,7 @@ type PaginatedMongoListQueryBuilder interface {
 
 // BasePaginatedMongoListQueryBuilder is a base implementation for PaginatedMongoListQueryBuilder
 type BasePaginatedMongoListQueryBuilder struct {
-	Logger logger.GooglyLogger
+	Logger *logger.GooglyLogger
 }
 
 // ListQuery should be implemented for MongoListQueryBuilder.
@@ -116,6 +116,6 @@ func (qb *BasePaginatedMongoListQueryBuilder) PaginationQuery(parameters resourc
 }
 
 // NewBasePaginatedMongoListQueryBuilder creates a new BasePaginatedMongoListQueryBuilder
-func NewBasePaginatedMongoListQueryBuilder(logger logger.GooglyLogger) *BasePaginatedMongoListQueryBuilder {
+func NewBasePaginatedMongoListQueryBuilder(logger *logger.GooglyLogger) *BasePaginatedMongoListQueryBuilder {
 	return &BasePaginatedMongoListQueryBuilder{Logger: logger}
 }

@@ -16,7 +16,7 @@ func TestBaseMongoResourceManagerCreate(t *testing.T) {
 		var m MockModel
 		rm := NewBaseMongoResourceManager(
 			mt.DB, "mock",
-			new(logger.MockGooglyLogger),
+			logger.NewGooglyLogger(),
 			m,
 			new(MockMongoListQueryBuilder),
 		)
@@ -36,7 +36,7 @@ func TestBaseMongoResourceManagerGet(t *testing.T) {
 		var m MockModel
 		rm := NewBaseMongoResourceManager(
 			mt.DB, "mock",
-			new(logger.MockGooglyLogger),
+			logger.NewGooglyLogger(),
 			m,
 			new(MockMongoListQueryBuilder),
 		)
@@ -59,7 +59,7 @@ func TestBaseMongoResourceManagerList(t *testing.T) {
 		qb := new(MockMongoListQueryBuilder)
 		rm := NewBaseMongoResourceManager(
 			mt.DB, "mock",
-			new(logger.MockGooglyLogger),
+			logger.NewGooglyLogger(),
 			m,
 			qb,
 		)
@@ -84,7 +84,7 @@ func TestBaseMongoResourceManagerUpdate(t *testing.T) {
 		var m MockModel
 		rm := NewBaseMongoResourceManager(
 			mt.DB, "mock",
-			new(logger.MockGooglyLogger),
+			logger.NewGooglyLogger(),
 			m,
 			new(MockMongoListQueryBuilder),
 		)
@@ -103,7 +103,7 @@ func TestBaseMongoResourceManagerDelete(t *testing.T) {
 		var m MockModel
 		rm := NewBaseMongoResourceManager(
 			mt.DB, "mock",
-			new(logger.MockGooglyLogger),
+			logger.NewGooglyLogger(),
 			m,
 			new(MockMongoListQueryBuilder),
 		)
